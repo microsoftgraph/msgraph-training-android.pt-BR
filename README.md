@@ -24,7 +24,7 @@ Se você só quiser que o exemplo completo seja gerado seguindo este laboratóri
 
 ## <a name="watch-the-module"></a>Assista ao módulo
 
-Este módulo foi gravado e está disponível no canal do Office Development YouTube: [criar aplicativos nativos do Android com o SDK do Microsoft Graph Java](https://youtu.be/Yk0FMwXanck)
+Este módulo foi gravado e está disponível no canal do Office Development YouTube: [criar aplicativos nativos do Android com o SDK do Microsoft Graph Java](https://youtu.be/BLmOmv4FSsQ)
 
 ## <a name="contributors"></a>Colaboradores
 
@@ -38,10 +38,12 @@ Este módulo foi gravado e está disponível no canal do Office Development YouT
 
 | Versão | Data               | Comments                                                                   |
 | ------- | ------------------ | -------------------------------------------------------------------------- |
-| 1.6     | 20 de fevereiro de 2019  | Atualizado para o formato docs.microsoft.com      |
+| 1,8     | 18 de junho de 2019      | Leiame atualizado para a gravação de screencast atualizada                           |
+| 1.7     | 30 de março de 2019     | Atualização de conteúdo do FY2019Q4                                                   |
+| 1.6     | 20 de fevereiro de 2019  | Atualizado para o formato docs.microsoft.com                                       |
 | 1,5     | 12 de fevereiro de 2019  | Várias dependências foram aplicadas Atualização trimestral                    |
-| 1.4     | 8 de novembro de 2018   | SDK do Java de gráfico atualizado para GA v1 & aplicado trimestralmente                |
-| 1.3     | 12 de setembro de 2018 | Substituiu o Graph Andriod SDK pelo Graph Java SDK & a atualização trimestral |
+| 1.4     | 8 de novembro de 2018   | SDK do graph java atualizado para GA v1 & aplicado trimestralmente                |
+| 1.3     | 12 de setembro de 2018 | Foi substituído o Graph Android SDK with Graph Java SDK & aplicado trimestralmente Refresh |
 | 1.2     | 28 de junho de 2018      | O screencast foi adicionado.                                                          |
 | 1.1     | 22 de junho de 2018      | Reescrito para usar a orientação mais recente.                                          |
 | 1.0     | ~ 24 de novembro de 2017 | Adicione debates de produtos relacionados ao Microsoft Graph.                             |

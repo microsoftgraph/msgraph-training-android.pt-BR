@@ -28,14 +28,14 @@ Se você não tem uma conta da Microsoft, há algumas opções para obter uma co
 
     ![Uma captura de tela da página registrar um aplicativo](../../tutorial/images/aad-register-an-app.png)
 
-1. Escolha **Registrar**. Na página **tutorial do gráfico do Xamarin** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
+1. Selecione **registrar**. Na página **tutorial do gráfico do Xamarin** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
 
     ![Uma captura de tela da ID do aplicativo do novo registro de aplicativo](../../tutorial/images/aad-application-id.png)
 
-1. Selecione o link **Adicionar um URI** de redirecionamento. Na página **redirecionar URIs** , localize a seção redirecionar **URIs sugeridos para clientes públicos (móvel, área de trabalho)** . Selecione o URI que começa com `msal` e copie-o e, em seguida, escolha **salvar**. Salve o URI de redirecionamento copiado, será necessário na próxima etapa.
+1. Selecione o link **Adicionar um URI** de redirecionamento. Na página **redirecionar URIs** , localize a seção redirecionar **URIs sugeridos para clientes públicos (móvel, área de trabalho)** . Selecione o URI que começa com `msal` e copie-o e, em seguida, selecione **salvar**. Salve o URI de redirecionamento copiado, será necessário na próxima etapa.
 
     ![Captura de tela da página URIs de redirecionamento](../../tutorial/images/aad-redirect-uris.png)
 
 ## <a name="run-the-sample"></a>Executar o exemplo
 
-No Android Studio, escolha **executar "aplicativo"** no menu **executar** .
+No Android Studio, selecione **executar "aplicativo"** no menu **executar** .
