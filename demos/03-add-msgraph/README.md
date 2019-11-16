@@ -4,7 +4,7 @@
 
 Para executar o projeto concluído nessa pasta, você precisará do seguinte:
 
-- [Android Studio](https://developer.android.com/studio/) instalado em sua máquina de desenvolvimento. (**Observação:** este tutorial foi escrito com o Android Studio versão 3.3.1 com o 1.8.0 jre e o SDK 9,0 do Android. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
+- [Android Studio](https://developer.android.com/studio/) instalado em sua máquina de desenvolvimento. (**Observação:** este tutorial foi escrito com o Android Studio versão 3.5.1 e o SDK 10,0 do Android. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
 - Uma conta pessoal da Microsoft com uma caixa de correio no Outlook.com ou uma conta corporativa ou de estudante da Microsoft.
 
 Se você não tem uma conta da Microsoft, há algumas opções para obter uma conta gratuita:
@@ -16,7 +16,7 @@ Se você não tem uma conta da Microsoft, há algumas opções para obter uma co
 
 1. Abra um navegador, navegue até o [centro de administração do Azure Active Directory](https://aad.portal.azure.com) e faça logon usando uma **conta pessoal** (também conhecida como conta da Microsoft) ou **Conta Corporativa ou de Estudante**.
 
-1. Selecione **Azure Active Directory** na navegação à esquerda e, em seguida, selecione **registros de aplicativo** em **gerenciar**.
+1. Selecione **Azure Active Directory** na navegação esquerda e selecione **Registros de aplicativos** em **Gerenciar**.
 
     ![Uma captura de tela dos registros de aplicativo ](../../tutorial/images/aad-portal-app-registrations.png)
 
@@ -24,22 +24,18 @@ Se você não tem uma conta da Microsoft, há algumas opções para obter uma co
 
     - Defina **Nome** para `Android Graph Tutorial`.
     - Defina **Tipos de conta com suporte** para **Contas em qualquer diretório organizacional e contas pessoais da Microsoft**.
-    - Deixe o **URI de Redirecionamento** vazio.
+    - Em **URI de redirecionamento**, defina o menu suspenso como **cliente público/nativo (celular & Desktop)** e `msauth://YOUR_PACKAGE_NAME/callback`defina o `YOUR_PACKAGE_NAME` valor como, substituindo com o nome do pacote do seu projeto.
 
     ![Uma captura de tela da página registrar um aplicativo](../../tutorial/images/aad-register-an-app.png)
 
-1. Selecione **registrar**. Na página **tutorial do gráfico do Xamarin** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
+1. Selecione **registrar**. Na página **tutorial do Android Graph** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
 
     ![Uma captura de tela da ID do aplicativo do novo registro de aplicativo](../../tutorial/images/aad-application-id.png)
 
-1. Selecione o link **Adicionar um URI de redirecionamento** . Na página **redirecionar URIs** , localize a seção **redirecionar URIs sugeridos para clientes públicos (móvel, área de trabalho)** . Selecione o URI que começa com `msal` e copie-o e, em seguida, selecione **salvar**. Salve o URI de redirecionamento copiado, será necessário na próxima etapa.
-
-    ![Captura de tela da página URIs de redirecionamento](../../tutorial/images/aad-redirect-uris.png)
-
 ## <a name="configure-the-sample"></a>Configurar o exemplo
 
-1. Renomeie `oauth_strings.xml.example` o `oauth_strings.xml` arquivo e mova o arquivo para `GraphTutorial/app/src/main/res/values` o diretório.
-1. Edite `oauth_strings.xml` o arquivo e faça as seguintes alterações.
+1. Renomeie `msal_config.json.example` o `msal_config.json` arquivo e mova o arquivo para `GraphTutorial/app/src/main/res/raw` o diretório.
+1. Edite `msal_config.json` o arquivo e faça as seguintes alterações.
     1. Substitua `YOUR_APP_ID_HERE` pela **ID do aplicativo** obtida do portal do Azure.
 
 ## <a name="run-the-sample"></a>Executar o exemplo

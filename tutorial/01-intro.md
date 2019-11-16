@@ -10,7 +10,7 @@ Este tutorial ensina como criar um aplicativo Android que usa a API do Microsoft
 Antes de iniciar este tutorial, você deve ter o [Android Studio](https://developer.android.com/studio/) instalado em sua máquina de desenvolvimento.
 
 > [!NOTE]
-> Este tutorial foi escrito com o Android Studio versão 3.3.1 com o JRE do 1.8.0 e o SDK 9,0 do Android. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
+> Este tutorial foi escrito com o Android Studio versão 3.5.1 e o SDK 10,0 do Android. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
 
 ## <a name="watch-the-tutorial"></a>Assista ao tutorial
 

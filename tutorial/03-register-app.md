@@ -4,7 +4,7 @@ Neste exercício, você criará um novo aplicativo nativo do Azure AD usando o c
 
 1. Abra um navegador, navegue até o [centro de administração do Azure Active Directory](https://aad.portal.azure.com) e faça logon usando uma **conta pessoal** (também conhecida como conta da Microsoft) ou **Conta Corporativa ou de Estudante**.
 
-1. Selecione **Azure Active Directory** na navegação à esquerda e, em seguida, selecione **registros de aplicativo** em **gerenciar**.
+1. Selecione **Azure Active Directory** na navegação esquerda e selecione **Registros de aplicativos** em **Gerenciar**.
 
     ![Uma captura de tela dos registros de aplicativo ](./images/aad-portal-app-registrations.png)
 
@@ -12,14 +12,10 @@ Neste exercício, você criará um novo aplicativo nativo do Azure AD usando o c
 
     - Defina **Nome** para `Android Graph Tutorial`.
     - Defina **Tipos de conta com suporte** para **Contas em qualquer diretório organizacional e contas pessoais da Microsoft**.
-    - Deixe o **URI de Redirecionamento** vazio.
+    - Em **URI de redirecionamento**, defina o menu suspenso como **cliente público/nativo (celular & Desktop)** e `msauth://YOUR_PACKAGE_NAME/callback`defina o `YOUR_PACKAGE_NAME` valor como, substituindo com o nome do pacote do seu projeto.
 
     ![Uma captura de tela da página registrar um aplicativo](./images/aad-register-an-app.png)
 
 1. Selecione **registrar**. Na página **tutorial do Android Graph** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
 
     ![Uma captura de tela da ID do aplicativo do novo registro de aplicativo](./images/aad-application-id.png)
-
-1. Selecione o link **Adicionar um URI** de redirecionamento. Na página **redirecionar URIs** , localize a seção redirecionar **URIs sugeridos para clientes públicos (móvel, área de trabalho)** . Selecione o URI que começa com `msal` e copie-o e, em seguida, selecione **salvar**. Salve o URI de redirecionamento copiado, será necessário na próxima etapa.
-
-    ![Captura de tela da página URIs de redirecionamento](./images/aad-redirect-uris.png)

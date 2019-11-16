@@ -10,7 +10,7 @@ Neste laboratório, você criará um aplicativo Android usando o ponto de extrem
 
 ## <a name="demos"></a>Demonstrações
 
-O [](./demos) diretório demos neste repositório contém cópias do projeto que correspondem à conclusão de seções individuais do tutorial. Se você só quiser demonstrar uma seção específica do tutorial, você pode começar com a versão da seção anterior.
+O diretório [demos](./demos) neste repositório contém cópias do projeto que correspondem à conclusão de seções individuais do tutorial. Se você só quiser demonstrar uma seção específica do tutorial, você pode começar com a versão da seção anterior.
 
 - [01-create-app](demos/01-create-app): concluir a [criação de um aplicativo Android](https://docs.microsoft.com/graph/tutorials/android?tutorial-step=1)
 - [02-Add-AAD-auth](demos/02-add-aad-auth): concluído [Adicionar autenticação do Azure ad](https://docs.microsoft.com/graph/tutorials/android?tutorial-step=3)
@@ -31,13 +31,14 @@ Este módulo foi gravado e está disponível no canal do Office Development YouT
 | Funções                | Autor (es)                                               |
 | -------------------- | ------------------------------------------------------- |
 | Manuais/slides do laboratório | Andrew Connell (Microsoft MVP, Voitanos) @andrewconnell |
-| Código do SDK Java do Graph  | vikyding (Microsoft) @vikyding                          |
+| Código                 | Jason Johnston (Microsoft) @jasonjohmsft                |
 | Patrocinador/suporte    | Yina Arenas (Microsoft) @yinaa                          |
 
 ## <a name="version-history"></a>Histórico de versão
 
-| Versão | Data               | Comments                                                                   |
+| Versão | Data               | Comentários                                                                   |
 | ------- | ------------------ | -------------------------------------------------------------------------- |
+| 1.9     | 13 de novembro de 2019  | Recriado o projeto com androidx artefatos e o SDK mais recente do Android, o MSAL, o SDK do Graph |
 | 1,8     | 18 de junho de 2019      | Leiame atualizado para a gravação de screencast atualizada                           |
 | 1.7     | 30 de março de 2019     | Atualização de conteúdo do FY2019Q4                                                   |
 | 1.6     | 20 de fevereiro de 2019  | Atualizado para o formato docs.microsoft.com                                       |
@@ -52,4 +53,5 @@ Este módulo foi gravado e está disponível no canal do Office Development YouT
 
 **Este código é fornecido _como está_ sem garantia de qualquer tipo, seja expressa ou implícita, incluindo quaisquer garantias implícitas de ADEQÜAÇÃO para um propósito específico, comercialização ou não-violação.**
 
+<!-- markdownlint-disable MD033 -->
 <img src="https://telemetry.sharepointpnp.com/msgraph-training-android" />

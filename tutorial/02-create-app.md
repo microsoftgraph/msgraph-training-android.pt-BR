@@ -8,18 +8,18 @@ Comece criando um novo projeto do Android Studio.
 
     ![Uma captura de tela da caixa de diálogo Criar novo projeto no Android Studio](./images/choose-project.png)
 
-1. Na caixa de diálogo **Configurar o projeto** , defina **** o nome `Graph Tutorial`como, verifique se o campo de idioma `Java`está definido como e se o nível de **API mínimo** está definido como. **** `API 27: Android 8.1 (Oreo)` Modifique o **nome do pacote** e **salve o local** conforme necessário. Selecione **Concluir**.
+1. Na caixa de diálogo **Configurar o projeto** , defina **** o nome `Graph Tutorial`como, verifique se o campo de idioma `Java`está definido como e se o nível de **API mínimo** está definido como. **** `API 29: Android 10.0 (Q)` Modifique o **nome do pacote** e **salve o local** conforme necessário. Selecione **Concluir**.
 
     ![Uma captura de tela da caixa de diálogo Configurar seu projeto](./images/configure-project.png)
 
 > [!IMPORTANT]
-> Certifique-se de inserir exatamente o mesmo nome para o projeto especificado nas instruções do laboratório. O nome do projeto se torna parte do namespace no código. O código dentro dessas instruções depende do namespace correspondente ao nome do projeto especificado nessas instruções. Se você usar um nome de projeto diferente, o código não será compilado, a menos que você ajuste todos os namespaces para corresponder ao nome do projeto que você inseriu ao criar o projeto.
+> O código e as instruções neste tutorial usam o nome de pacote **com. example. graphtutorial**. Se você usar um nome de pacote diferente ao criar o projeto, certifique-se de usar o nome do pacote onde quer que você veja esse valor.
 
 ## <a name="install-dependencies"></a>Instalar dependências
 
 Antes de prosseguir, instale algumas dependências adicionais que serão usadas posteriormente.
 
-- `com.android.support:design`disponibilizar os layouts de gaveta de navegação para o aplicativo.
+- `com.google.android.material:material`para tornar o [modo de exibição de navegação](https://material.io/develop/android/components/navigation-view/) disponível para o aplicativo.
 - A [biblioteca de autenticação da Microsoft (MSAL) para Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) para lidar com a autenticação do Azure AD e o gerenciamento de tokens.
 - [SDK do Microsoft Graph para Java](https://github.com/microsoftgraph/msgraph-sdk-java) para fazer chamadas para o Microsoft Graph.
 
@@ -28,15 +28,12 @@ Antes de prosseguir, instale algumas dependências adicionais que serão usadas 
 1. Adicione as seguintes linhas dentro do `dependencies` valor.
 
     ```Gradle
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.microsoft.graph:microsoft-graph:1.4.0'
-    implementation 'com.microsoft.identity.client:msal:0.2.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.microsoft.identity.client:msal:1.0.0'
+    implementation 'com.microsoft.graph:microsoft-graph:1.6.0'
     ```
 
-    > [!NOTE]
-    > Se você estiver usando uma versão diferente do SDK, certifique-se de `28.0.0` alterar o para corresponder à versão `com.android.support:appcompat-v7` da dependência já presente em **Build. gradle**.
-
-1. Adicione um `packagingOptions` dentro do `android` valor no arquivo **Build. gradle (Module: app)** .
+1. Adicione um `packagingOptions` valor dentro do `android` valor no arquivo **Build. gradle (Module: app)** .
 
     ```Gradle
     packagingOptions {
@@ -48,7 +45,7 @@ Antes de prosseguir, instale algumas dependências adicionais que serão usadas 
 
 ## <a name="design-the-app"></a>Projetar o aplicativo
 
-O aplicativo usará uma [gaveta de navegação](https://developer.android.com/training/implementing-navigation/nav-drawer) para navegar entre diferentes modos de exibição. Nesta etapa, você atualizará a atividade para usar um layout de gaveta de navegação e adicionará fragmentos para os modos de exibição.
+O aplicativo usará uma gaveta de navegação para navegar entre diferentes modos de exibição. Nesta etapa, você atualizará a atividade para usar um layout de gaveta de navegação e adicionará fragmentos para os modos de exibição.
 
 ### <a name="create-a-navigation-drawer"></a>Criar uma gaveta de navegação
 
@@ -179,7 +176,7 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
 
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/drawer_layout"
@@ -201,7 +198,7 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
                 android:layout_centerInParent="true"
                 android:visibility="gone"/>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -216,7 +213,7 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
                 android:layout_below="@+id/toolbar" />
         </RelativeLayout>
 
-        <android.support.design.widget.NavigationView
+        <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -224,7 +221,7 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/drawer_menu" />
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
     ```
 
 1. Abra **app/res/Values/Strings. xml** e adicione os seguintes elementos dentro `resources` do elemento.
@@ -239,20 +236,20 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
     ```java
     package com.example.graphtutorial;
 
-    import android.support.annotation.NonNull;
-    import android.support.design.widget.NavigationView;
-    import android.support.v4.view.GravityCompat;
-    import android.support.v4.widget.DrawerLayout;
-    import android.support.v7.app.ActionBarDrawerToggle;
-    import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
-    import android.support.v7.widget.Toolbar;
     import android.view.Menu;
     import android.view.MenuItem;
     import android.view.View;
     import android.widget.FrameLayout;
     import android.widget.ProgressBar;
     import android.widget.TextView;
+    import androidx.annotation.NonNull;
+    import androidx.appcompat.app.ActionBarDrawerToggle;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.appcompat.widget.Toolbar;
+    import androidx.core.view.GravityCompat;
+    import androidx.drawerlayout.widget.DrawerLayout;
+    import com.google.android.material.navigation.NavigationView;
 
     public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
         private DrawerLayout mDrawer;
@@ -419,7 +416,7 @@ Nesta seção, você criará fragmentos para os modos de exibição página inic
 
 1. Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.
 
-1. Nomeie a classe `HomeFragment` e defina a **** superclasse `android.support.v4.app.Fragment`como e, em seguida, selecione **OK**.
+1. Nomeie a classe `HomeFragment` e defina a **superclasse** como `androidx.fragment.app.Fragment`e, em seguida, selecione **OK**.
 
 1. Abra o arquivo **HomeFragment** e substitua seu conteúdo pelo seguinte.
 
@@ -480,15 +477,28 @@ Nesta seção, você criará fragmentos para os modos de exibição página inic
 
 1. Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.
 
-1. Nomeie a classe `CalendarFragment` e defina a **** superclasse `android.support.v4.app.Fragment`como e, em seguida, selecione **OK**.
+1. Nomeie a classe `CalendarFragment` e defina a **superclasse** como `androidx.fragment.app.Fragment`e, em seguida, selecione **OK**.
 
-1. Abra o arquivo **CalendarFragment** e adicione a função a seguir à `CalendarFragment` classe.
+1. Abra o arquivo **CalendarFragment** e substitua seu conteúdo pelo seguinte.
 
     ```java
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+    package com.example.graphtutorial;
+
+    import android.os.Bundle;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
+    import androidx.annotation.NonNull;
+    import androidx.annotation.Nullable;
+    import androidx.fragment.app.Fragment;
+
+    public class CalendarFragment extends Fragment {
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_calendar, container, false);
+        }
     }
     ```
 
@@ -563,6 +573,6 @@ Nesta seção, você criará fragmentos para os modos de exibição página inic
 
 1. No menu **executar** , selecione **executar "aplicativo"**.
 
-O menu do aplicativo deve funcionar para navegar entre os dois fragmentos e alterar quando você toca nos botões **entrar** ou **** sair.
+O menu do aplicativo deve funcionar para navegar entre os dois fragmentos e alterar quando você toca nos botões **entrar** ou **sair.**
 
 ![Captura de tela do aplicativo](./images/app-screens.png)
