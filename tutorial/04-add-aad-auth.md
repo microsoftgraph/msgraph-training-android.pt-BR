@@ -1,32 +1,45 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="e5529-101">Neste exercício, você estenderá o aplicativo do exercício anterior para oferecer suporte à autenticação com o Azure AD.</span><span class="sxs-lookup"><span data-stu-id="e5529-101">In this exercise you will extend the application from the previous exercise to support authentication with Azure AD.</span></span> <span data-ttu-id="e5529-102">Isso é necessário para obter o token de acesso OAuth necessário para chamar o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="e5529-102">This is required to obtain the necessary OAuth access token to call the Microsoft Graph.</span></span> <span data-ttu-id="e5529-103">Para fazer isso, você integrará a [biblioteca de autenticação da Microsoft (MSAL) para Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) no aplicativo.</span><span class="sxs-lookup"><span data-stu-id="e5529-103">To do this, you will integrate the [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) into the application.</span></span>
+<span data-ttu-id="9dd4a-101">Neste exercício, você estenderá o aplicativo do exercício anterior para oferecer suporte à autenticação com o Azure AD.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-101">In this exercise you will extend the application from the previous exercise to support authentication with Azure AD.</span></span> <span data-ttu-id="9dd4a-102">Isso é necessário para obter o token de acesso OAuth necessário para chamar o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-102">This is required to obtain the necessary OAuth access token to call the Microsoft Graph.</span></span> <span data-ttu-id="9dd4a-103">Para fazer isso, você integrará a [biblioteca de autenticação da Microsoft (MSAL) para Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) no aplicativo.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-103">To do this, you will integrate the [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) into the application.</span></span>
 
-1. <span data-ttu-id="e5529-104">Clique com o botão direito do mouse na pasta **app/res/Values** e selecione **novo**e, em seguida, **valores recurso arquivo**.</span><span class="sxs-lookup"><span data-stu-id="e5529-104">Right-click the **app/res/values** folder and select **New**, then **Values resource file**.</span></span>
+1. <span data-ttu-id="9dd4a-104">Clique com o botão direito do mouse na pasta **res** e selecione **novo**e, em seguida, **diretório de recursos do Android**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-104">Right-click the **res** folder and select **New**, then **Android Resource Directory**.</span></span>
 
-1. <span data-ttu-id="e5529-105">Nomeie o arquivo `oauth_strings` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="e5529-105">Name the file `oauth_strings` and select **OK**.</span></span>
+1. <span data-ttu-id="9dd4a-105">Altere o **tipo** de recurso `raw` para e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-105">Change the **Resource type** to `raw` and select **OK**.</span></span>
 
-1. <span data-ttu-id="e5529-106">Adicione os seguintes valores ao `resources` elemento.</span><span class="sxs-lookup"><span data-stu-id="e5529-106">Add the following values to the `resources` element.</span></span>
+1. <span data-ttu-id="9dd4a-106">Clique com o botão direito do mouse na nova pasta **RAW** e selecione **novo**e, em seguida, **arquivo**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-106">Right-click the new **raw** folder and select **New**, then **File**.</span></span>
 
-    ```xml
-    <string name="oauth_app_id">YOUR_APP_ID_HERE</string>
-    <string name="oauth_redirect_uri">msalYOUR_APP_ID_HERE</string>
-    <string-array name="oauth_scopes">
-        <item>User.Read</item>
-        <item>Calendars.Read</item>
-    </string-array>
+1. <span data-ttu-id="9dd4a-107">Nomeie o arquivo `msal_config.json` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-107">Name the file `msal_config.json` and select **OK**.</span></span>
+
+1. <span data-ttu-id="9dd4a-108">Adicione o seguinte ao arquivo **msal_config. JSON** .</span><span class="sxs-lookup"><span data-stu-id="9dd4a-108">Add the following to the **msal_config.json** file.</span></span>
+
+    ```json
+    {
+      "client_id" : "YOUR_APP_ID_HERE",
+      "redirect_uri" : "msauth://YOUR_PACKAGE_NAME_HERE/callback",
+      "broker_redirect_uri_registered": false,
+      "account_mode": "SINGLE",
+      "authorities" : [
+        {
+          "type": "AAD",
+          "audience": {
+            "type": "AzureADandPersonalMicrosoftAccount"
+          },
+          "default": true
+        }
+      ]
+    }
     ```
 
-    <span data-ttu-id="e5529-107">Substitua `YOUR_APP_ID_HERE` pela ID do aplicativo do registro do aplicativo.</span><span class="sxs-lookup"><span data-stu-id="e5529-107">Replace `YOUR_APP_ID_HERE` with the app ID from your app registration.</span></span>
+    <span data-ttu-id="9dd4a-109">Substitua `YOUR_APP_ID_HERE` pela ID do aplicativo do registro do aplicativo e substitua `YOUR_PACKAGE_NAME_HERE` pelo nome do pacote do seu projeto.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-109">Replace `YOUR_APP_ID_HERE` with the app ID from your app registration, and replace `YOUR_PACKAGE_NAME_HERE` with your project's package name.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="e5529-108">Se você estiver usando o controle de origem como o Git, agora seria uma boa hora para excluir `oauth_strings.xml` o arquivo do controle de origem para evitar vazar inadvertidamente sua ID de aplicativo.</span><span class="sxs-lookup"><span data-stu-id="e5529-108">If you're using source control such as git, now would be a good time to exclude the `oauth_strings.xml` file from source control to avoid inadvertently leaking your app ID.</span></span>
+> <span data-ttu-id="9dd4a-110">Se você estiver usando o controle de origem como o Git, agora seria uma boa hora para excluir `msal_config.json` o arquivo do controle de origem para evitar vazar inadvertidamente sua ID de aplicativo.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-110">If you're using source control such as git, now would be a good time to exclude the `msal_config.json` file from source control to avoid inadvertently leaking your app ID.</span></span>
 
-## <a name="implement-sign-in"></a><span data-ttu-id="e5529-109">Implementar logon</span><span class="sxs-lookup"><span data-stu-id="e5529-109">Implement sign-in</span></span>
+## <a name="implement-sign-in"></a><span data-ttu-id="9dd4a-111">Implementar logon</span><span class="sxs-lookup"><span data-stu-id="9dd4a-111">Implement sign-in</span></span>
 
-<span data-ttu-id="e5529-110">Nesta seção, você atualizará o manifesto para permitir que o MSAL use um navegador para autenticar o usuário, registrar o URI de redirecionamento como manipulado pelo aplicativo, criar uma classe auxiliar de autenticação e atualizar o aplicativo para entrar e sair.</span><span class="sxs-lookup"><span data-stu-id="e5529-110">In this section you will update the manifest to allow MSAL to use a browser to authenticate the user, register your redirect URI as being handled by the app, create an authentication helper class, and update the app to sign in and sign out.</span></span>
+<span data-ttu-id="9dd4a-112">Nesta seção, você atualizará o manifesto para permitir que o MSAL use um navegador para autenticar o usuário, registrar o URI de redirecionamento como manipulado pelo aplicativo, criar uma classe auxiliar de autenticação e atualizar o aplicativo para entrar e sair.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-112">In this section you will update the manifest to allow MSAL to use a browser to authenticate the user, register your redirect URI as being handled by the app, create an authentication helper class, and update the app to sign in and sign out.</span></span>
 
-1. <span data-ttu-id="e5529-111">Expanda a pasta **aplicativos/manifestos** e abra **AndroidManifest. xml**.</span><span class="sxs-lookup"><span data-stu-id="e5529-111">Expand the **app/manifests** folder and open **AndroidManifest.xml**.</span></span> <span data-ttu-id="e5529-112">Adicione os seguintes elementos acima do `application` elemento.</span><span class="sxs-lookup"><span data-stu-id="e5529-112">Add the following elements above the `application` element.</span></span>
+1. <span data-ttu-id="9dd4a-113">Expanda a pasta **aplicativos/manifestos** e abra **AndroidManifest. xml**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-113">Expand the **app/manifests** folder and open **AndroidManifest.xml**.</span></span> <span data-ttu-id="9dd4a-114">Adicione os seguintes elementos acima do `application` elemento.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-114">Add the following elements above the `application` element.</span></span>
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,51 +47,63 @@
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="e5529-113">Essas permissões são necessárias para que a biblioteca do MSAL autentique o usuário.</span><span class="sxs-lookup"><span data-stu-id="e5529-113">These permissions are required in order for the MSAL library to authenticate the user.</span></span>
+    > <span data-ttu-id="9dd4a-115">Essas permissões são necessárias para que a biblioteca do MSAL autentique o usuário.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-115">These permissions are required in order for the MSAL library to authenticate the user.</span></span>
 
-1. <span data-ttu-id="e5529-114">Adicione o elemento a seguir dentro `application` do elemento.</span><span class="sxs-lookup"><span data-stu-id="e5529-114">Add the following element inside the `application` element.</span></span>
+1. <span data-ttu-id="9dd4a-116">Adicione o seguinte elemento dentro do `application` elemento, substituindo `YOUR_PACKAGE_NAME_HERE` a cadeia de caracteres com o nome do pacote.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-116">Add the following element inside the `application` element, replacing the `YOUR_PACKAGE_NAME_HERE` string with your package name.</span></span>
 
     ```xml
-    <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+    <!--Intent filter to capture authorization code response from the default browser on the
+        device calling back to the app after interactive sign in -->
+    <activity
+        android:name="com.microsoft.identity.client.BrowserTabActivity">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
-
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-
             <data
-                android:host="auth"
-                android:scheme="@string/oauth_redirect_uri" />
+                android:scheme="msauth"
+                android:host="YOUR_PACKAGE_NAME_HERE"
+                android:path="/callback" />
         </intent-filter>
     </activity>
     ```
 
-1. <span data-ttu-id="e5529-115">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="e5529-115">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="e5529-116">Nomeie a classe `AuthenticationHelper` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="e5529-116">Name the class `AuthenticationHelper` and select **OK**.</span></span>
+1. <span data-ttu-id="9dd4a-117">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-117">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="9dd4a-118">Nomeie a classe `AuthenticationHelper` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-118">Name the class `AuthenticationHelper` and select **OK**.</span></span>
 
-1. <span data-ttu-id="e5529-117">Abra o novo arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="e5529-117">Open the new file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="9dd4a-119">Abra o novo arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-119">Open the new file and replace its contents with the following.</span></span>
 
     ```java
     package com.example.graphtutorial;
 
     import android.app.Activity;
     import android.content.Context;
-    import android.content.Intent;
-
+    import android.util.Log;
     import com.microsoft.identity.client.AuthenticationCallback;
-    import com.microsoft.identity.client.IAccount;
+    import com.microsoft.identity.client.IPublicClientApplication;
+    import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
     import com.microsoft.identity.client.PublicClientApplication;
+    import com.microsoft.identity.client.exception.MsalException;
 
     // Singleton class - the app only needs a single instance
     // of PublicClientApplication
     public class AuthenticationHelper {
         private static AuthenticationHelper INSTANCE = null;
-        private PublicClientApplication mPCA = null;
-        private String[] mScopes;
+        private ISingleAccountPublicClientApplication mPCA = null;
+        private String[] mScopes = { "User.Read", "Calendars.Read" };
 
         private AuthenticationHelper(Context ctx) {
-            String appId = ctx.getResources().getString(R.string.oauth_app_id);
-            mScopes = ctx.getResources().getStringArray(R.array.oauth_scopes);
-            mPCA = new PublicClientApplication(ctx, appId);
+            PublicClientApplication.createSingleAccountPublicClientApplication(ctx, R.raw.msal_config,
+                new IPublicClientApplication.ISingleAccountApplicationCreatedListener() {
+                    @Override
+                    public void onCreated(ISingleAccountPublicClientApplication application) {
+                        mPCA = application;
+                    }
+
+                    @Override
+                    public void onError(MsalException exception) {
+                        Log.e("AUTHHELPER", "Error creating MSAL application", exception);
+                    }
+                });
         }
 
         public static synchronized AuthenticationHelper getInstance(Context ctx) {
@@ -94,76 +119,65 @@
         public static synchronized AuthenticationHelper getInstance() {
             if (INSTANCE == null) {
                 throw new IllegalStateException(
-                        "AuthenticationHelper has not been initialized from MainActivity");
+                    "AuthenticationHelper has not been initialized from MainActivity");
             }
 
             return INSTANCE;
         }
 
-        public boolean hasAccount() {
-            return !mPCA.getAccounts().isEmpty();
-        }
-
-        public void handleRedirect(int requestCode, int resultCode, Intent data) {
-            mPCA.handleInteractiveRequestRedirect(requestCode, resultCode, data);
-        }
-
         public void acquireTokenInteractively(Activity activity, AuthenticationCallback callback) {
-            mPCA.acquireToken(activity, mScopes, callback);
+            mPCA.signIn(activity, null, mScopes, callback);
         }
 
         public void acquireTokenSilently(AuthenticationCallback callback) {
-            mPCA.acquireTokenSilentAsync(mScopes, mPCA.getAccounts().get(0), callback);
+            // Get the authority from MSAL config
+            String authority = mPCA.getConfiguration().getDefaultAuthority().getAuthorityURL().toString();
+            mPCA.acquireTokenSilentAsync(mScopes, authority, callback);
         }
 
         public void signOut() {
-            for (IAccount account : mPCA.getAccounts()) {
-                mPCA.removeAccount(account);
-            }
+            mPCA.signOut(new ISingleAccountPublicClientApplication.SignOutCallback() {
+                @Override
+                public void onSignOut() {
+                    Log.d("AUTHHELPER", "Signed out");
+                }
+
+                @Override
+                public void onError(@NonNull MsalException exception) {
+                    Log.d("AUTHHELPER", "MSAL error signing out", exception);
+                }
+            });
         }
     }
     ```
 
-1. <span data-ttu-id="e5529-118">Abra o **MainActivity** e adicione as `import` instruções a seguir.</span><span class="sxs-lookup"><span data-stu-id="e5529-118">Open **MainActivity** and add the following `import` statements.</span></span>
+1. <span data-ttu-id="9dd4a-120">Abra o **MainActivity** e adicione as `import` instruções a seguir.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-120">Open **MainActivity** and add the following `import` statements.</span></span>
 
     ```java
-    import android.content.Intent;
-    import android.support.annotation.Nullable;
     import android.util.Log;
 
     import com.microsoft.identity.client.AuthenticationCallback;
-    import com.microsoft.identity.client.AuthenticationResult;
+    import com.microsoft.identity.client.IAuthenticationResult;
     import com.microsoft.identity.client.exception.MsalClientException;
     import com.microsoft.identity.client.exception.MsalException;
     import com.microsoft.identity.client.exception.MsalServiceException;
     import com.microsoft.identity.client.exception.MsalUiRequiredException;
     ```
 
-1. <span data-ttu-id="e5529-119">Adicione a propriedade do membro a seguir `MainActivity` à classe.</span><span class="sxs-lookup"><span data-stu-id="e5529-119">Add the following member property to the `MainActivity` class.</span></span>
+1. <span data-ttu-id="9dd4a-121">Adicione a propriedade do membro a seguir `MainActivity` à classe.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-121">Add the following member property to the `MainActivity` class.</span></span>
 
     ```java
     private AuthenticationHelper mAuthHelper = null;
     ```
 
-1. <span data-ttu-id="e5529-120">Adicione o seguinte ao final da `onCreate` função.</span><span class="sxs-lookup"><span data-stu-id="e5529-120">Add the following to the end of the `onCreate` function.</span></span>
+1. <span data-ttu-id="9dd4a-122">Adicione o seguinte ao final da `onCreate` função.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-122">Add the following to the end of the `onCreate` function.</span></span>
 
     ```java
     // Get the authentication helper
     mAuthHelper = AuthenticationHelper.getInstance(getApplicationContext());
     ```
 
-1. <span data-ttu-id="e5529-121">Adicione uma substituição para `onActivityResult` lidar com as respostas de autenticação.</span><span class="sxs-lookup"><span data-stu-id="e5529-121">Add an override for `onActivityResult` to handle authentication responses.</span></span>
-
-    ```java
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        mAuthHelper.handleRedirect(requestCode, resultCode, data);
-    }
-    ```
-
-1. <span data-ttu-id="e5529-122">Adicione as seguintes funções à `MainActivity` classe.</span><span class="sxs-lookup"><span data-stu-id="e5529-122">Add the following functions to the `MainActivity` class.</span></span>
+1. <span data-ttu-id="9dd4a-123">Adicione as seguintes funções à `MainActivity` classe.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-123">Add the following functions to the `MainActivity` class.</span></span>
 
     ```java
     // Silently sign in - used if there is already a
@@ -182,7 +196,7 @@
         return new AuthenticationCallback() {
 
             @Override
-            public void onSuccess(AuthenticationResult authenticationResult) {
+            public void onSuccess(IAuthenticationResult authenticationResult) {
                 // Log the token for debug purposes
                 String accessToken = authenticationResult.getAccessToken();
                 Log.d("AUTH", String.format("Access token: %s", accessToken));
@@ -200,8 +214,13 @@
                     doInteractiveSignIn();
 
                 } else if (exception instanceof MsalClientException) {
-                    // Exception inside MSAL, more info inside MsalError.java
-                    Log.e("AUTH", "Client error authenticating", exception);
+                    if (exception.getErrorCode() == "no_current_account") {
+                        Log.d("AUTH", "No current account, interactive login required");
+                        doInteractiveSignIn();
+                    } else {
+                        // Exception inside MSAL, more info inside MsalError.java
+                        Log.e("AUTH", "Client error authenticating", exception);
+                    }
                 } else if (exception instanceof MsalServiceException) {
                     // Exception when communicating with the auth server, likely config issue
                     Log.e("AUTH", "Service error authenticating", exception);
@@ -219,16 +238,15 @@
     }
     ```
 
-1. <span data-ttu-id="e5529-123">Substitua o existente `signIn` e `signOut` as funções pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="e5529-123">Replace the existing `signIn` and `signOut` functions with the following.</span></span>
+1. <span data-ttu-id="9dd4a-124">Substitua o existente `signIn` e `signOut` as funções pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-124">Replace the existing `signIn` and `signOut` functions with the following.</span></span>
 
     ```java
     private void signIn() {
         showProgressBar();
-        if (mAuthHelper.hasAccount()) {
-            doSilentSignIn();
-        } else {
-            doInteractiveSignIn();
-        }
+        // Attempt silent sign in first
+        // if this fails, the callback will handle doing
+        // interactive sign in
+        doSilentSignIn();
     }
 
     private void signOut() {
@@ -240,25 +258,25 @@
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="e5529-124">Observe que o `signIn` método primeiro verifica se há uma conta de usuário já no cache do MSAL.</span><span class="sxs-lookup"><span data-stu-id="e5529-124">Notice that the `signIn` method first checks if there is a user account already in the MSAL cache.</span></span> <span data-ttu-id="e5529-125">Se houver, ele tentará atualizar seus tokens de forma silenciosa, evitando ter que avisar o usuário toda vez que iniciar o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="e5529-125">If there is, it attempts to refresh its tokens silently, avoiding having to prompt the user every time they launch the app.</span></span>
+    > <span data-ttu-id="9dd4a-125">Observe que o `signIn` método primeiro verifica se há uma conta de usuário já no cache do MSAL.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-125">Notice that the `signIn` method first checks if there is a user account already in the MSAL cache.</span></span> <span data-ttu-id="9dd4a-126">Se houver, ele tentará atualizar seus tokens de forma silenciosa, evitando ter que avisar o usuário toda vez que iniciar o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-126">If there is, it attempts to refresh its tokens silently, avoiding having to prompt the user every time they launch the app.</span></span>
 
-1. <span data-ttu-id="e5529-126">Salve suas alterações e execute o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="e5529-126">Save your changes and run the app.</span></span>
+1. <span data-ttu-id="9dd4a-127">Salve suas alterações e execute o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-127">Save your changes and run the app.</span></span>
 
-1. <span data-ttu-id="e5529-127">Quando você toca no item de menu **entrar** , um navegador é aberto na página de logon do Azure AD.</span><span class="sxs-lookup"><span data-stu-id="e5529-127">When you tap the **Sign in** menu item, a browser opens to the Azure AD login page.</span></span> <span data-ttu-id="e5529-128">Entrar com sua conta.</span><span class="sxs-lookup"><span data-stu-id="e5529-128">Sign in with your account.</span></span>
+1. <span data-ttu-id="9dd4a-128">Quando você toca no item de menu **entrar** , um navegador é aberto na página de logon do Azure AD.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-128">When you tap the **Sign in** menu item, a browser opens to the Azure AD login page.</span></span> <span data-ttu-id="9dd4a-129">Entrar com sua conta.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-129">Sign in with your account.</span></span>
 
-<span data-ttu-id="e5529-129">Depois que o aplicativo reiniciar, você verá um token de acesso impresso no log de depuração no Android Studio.</span><span class="sxs-lookup"><span data-stu-id="e5529-129">Once the app resumes, you should see an access token printed in the debug log in Android Studio.</span></span>
+<span data-ttu-id="9dd4a-130">Depois que o aplicativo reiniciar, você verá um token de acesso impresso no log de depuração no Android Studio.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-130">Once the app resumes, you should see an access token printed in the debug log in Android Studio.</span></span>
 
 ![Uma captura de tela da janela do logcat no Android Studio](./images/debugger-access-token.png)
 
-## <a name="get-user-details"></a><span data-ttu-id="e5529-131">Obter detalhes do usuário</span><span class="sxs-lookup"><span data-stu-id="e5529-131">Get user details</span></span>
+## <a name="get-user-details"></a><span data-ttu-id="9dd4a-132">Obter detalhes do usuário</span><span class="sxs-lookup"><span data-stu-id="9dd4a-132">Get user details</span></span>
 
-<span data-ttu-id="e5529-132">Nesta seção, você criará uma classe auxiliar para manter todas as chamadas para o Microsoft Graph e atualizar a `MainActivity` classe para usar essa nova classe para obter o usuário conectado.</span><span class="sxs-lookup"><span data-stu-id="e5529-132">In this section you will create a helper class to hold all of the calls to Microsoft Graph and update the `MainActivity` class to use this new class to get the logged-in user.</span></span>
+<span data-ttu-id="9dd4a-133">Nesta seção, você criará uma classe auxiliar para manter todas as chamadas para o Microsoft Graph e atualizar a `MainActivity` classe para usar essa nova classe para obter o usuário conectado.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-133">In this section you will create a helper class to hold all of the calls to Microsoft Graph and update the `MainActivity` class to use this new class to get the logged-in user.</span></span>
 
-1. <span data-ttu-id="e5529-133">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="e5529-133">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span>
+1. <span data-ttu-id="9dd4a-134">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-134">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span>
 
-1. <span data-ttu-id="e5529-134">Nomeie a classe `GraphHelper` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="e5529-134">Name the class `GraphHelper` and select **OK**.</span></span>
+1. <span data-ttu-id="9dd4a-135">Nomeie a classe `GraphHelper` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-135">Name the class `GraphHelper` and select **OK**.</span></span>
 
-1. <span data-ttu-id="e5529-135">Abra o novo arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="e5529-135">Open the new file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="9dd4a-136">Abra o novo arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-136">Open the new file and replace its contents with the following.</span></span>
 
     ```java
     package com.example.graphtutorial;
@@ -308,12 +326,12 @@
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="e5529-136">Considere o que esse código faz.</span><span class="sxs-lookup"><span data-stu-id="e5529-136">Consider what this code does.</span></span>
+    > <span data-ttu-id="9dd4a-137">Considere o que esse código faz.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-137">Consider what this code does.</span></span>
     >
-    > - <span data-ttu-id="e5529-137">Ele implementa a `IAuthenticationProvider` interface para inserir o token de acesso no `Authorization` cabeçalho das solicitações HTTP de saída.</span><span class="sxs-lookup"><span data-stu-id="e5529-137">It implements the `IAuthenticationProvider` interface to insert the access token in the `Authorization` header on outgoing HTTP requests.</span></span>
-    > - <span data-ttu-id="e5529-138">Ele expõe uma `getUser` função para obter as informações do usuário conectado do ponto de extremidade `/me` do gráfico.</span><span class="sxs-lookup"><span data-stu-id="e5529-138">It exposes a `getUser` function to get the logged-in user's information from the `/me` Graph endpoint.</span></span>
+    > - <span data-ttu-id="9dd4a-138">Ele implementa a `IAuthenticationProvider` interface para inserir o token de acesso no `Authorization` cabeçalho das solicitações HTTP de saída.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-138">It implements the `IAuthenticationProvider` interface to insert the access token in the `Authorization` header on outgoing HTTP requests.</span></span>
+    > - <span data-ttu-id="9dd4a-139">Ele expõe uma `getUser` função para obter as informações do usuário conectado do ponto de extremidade `/me` do gráfico.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-139">It exposes a `getUser` function to get the logged-in user's information from the `/me` Graph endpoint.</span></span>
 
-1. <span data-ttu-id="e5529-139">Adicione as seguintes `import` instruções à parte superior do arquivo **MainActivity** .</span><span class="sxs-lookup"><span data-stu-id="e5529-139">Add the following `import` statements to the top of the **MainActivity** file.</span></span>
+1. <span data-ttu-id="9dd4a-140">Adicione as seguintes `import` instruções à parte superior do arquivo **MainActivity** .</span><span class="sxs-lookup"><span data-stu-id="9dd4a-140">Add the following `import` statements to the top of the **MainActivity** file.</span></span>
 
     ```java
     import com.microsoft.graph.concurrency.ICallback;
@@ -322,7 +340,7 @@
     import com.microsoft.graph.models.extensions.User;
     ```
 
-1. <span data-ttu-id="e5529-140">Adicione a função a seguir à `MainActivity` classe para gerar um `ICallback` para a chamada de gráfico.</span><span class="sxs-lookup"><span data-stu-id="e5529-140">Add the following function to the `MainActivity` class to generate an `ICallback` for the Graph call.</span></span>
+1. <span data-ttu-id="9dd4a-141">Adicione a função a seguir à `MainActivity` classe para gerar um `ICallback` para a chamada de gráfico.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-141">Add the following function to the `MainActivity` class to generate an `ICallback` for the Graph call.</span></span>
 
     ```java
     private ICallback<User> getUserCallback() {
@@ -366,7 +384,7 @@
     }
     ```
 
-1. <span data-ttu-id="e5529-141">Remova as seguintes linhas que definem o nome de usuário e o email:</span><span class="sxs-lookup"><span data-stu-id="e5529-141">Remove the following lines that set the user name and email:</span></span>
+1. <span data-ttu-id="9dd4a-142">Remova as seguintes linhas que definem o nome de usuário e o email:</span><span class="sxs-lookup"><span data-stu-id="9dd4a-142">Remove the following lines that set the user name and email:</span></span>
 
     ```java
     // For testing
@@ -374,7 +392,7 @@
     mUserEmail = "meganb@contoso.com";
     ```
 
-1. <span data-ttu-id="e5529-142">Substitua a `onSuccess` substituição `AuthenticationCallback` pela seguinte.</span><span class="sxs-lookup"><span data-stu-id="e5529-142">Replace the `onSuccess` override in the `AuthenticationCallback` with the following.</span></span>
+1. <span data-ttu-id="9dd4a-143">Substitua a `onSuccess` substituição `AuthenticationCallback` pela seguinte.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-143">Replace the `onSuccess` override in the `AuthenticationCallback` with the following.</span></span>
 
     ```java
     @Override
@@ -389,4 +407,4 @@
     }
     ```
 
-<span data-ttu-id="e5529-143">Se você salvar suas alterações e executar o aplicativo agora, após entrar, a interface do usuário será atualizada com o nome de exibição e o endereço de email do usuário.</span><span class="sxs-lookup"><span data-stu-id="e5529-143">If you save your changes and run the app now, after sign-in the UI is updated with the user's display name and email address.</span></span>
+<span data-ttu-id="9dd4a-144">Se você salvar suas alterações e executar o aplicativo agora, após entrar, a interface do usuário será atualizada com o nome de exibição e o endereço de email do usuário.</span><span class="sxs-lookup"><span data-stu-id="9dd4a-144">If you save your changes and run the app now, after sign-in the UI is updated with the user's display name and email address.</span></span>
