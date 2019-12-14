@@ -45,7 +45,7 @@ Nesta seção, você estenderá a `GraphHelper` classe para adicionar uma funç�
     > Considere o que o código `getEvents` está fazendo.
     >
     > - A URL que será chamada é `/v1.0/me/events`.
-    > - A `select` função limita os campos retornados para cada evento para apenas > aqueles que o modo de exibição realmente usará.
+    > - A `select` função limita os campos retornados para cada evento para apenas aqueles que o modo de exibição realmente usará.
     > - O `QueryOption` nome `orderby` é usado para classificar os resultados pela data e hora em que foram criados, com o item mais recente em primeiro lugar.
 
 1. Adicione as seguintes `import` instruções à parte superior do arquivo **CalendarFragment** .

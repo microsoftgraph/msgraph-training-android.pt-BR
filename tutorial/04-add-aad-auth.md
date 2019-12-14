@@ -258,7 +258,7 @@ Nesta seção, você atualizará o manifesto para permitir que o MSAL use um nav
     ```
 
     > [!NOTE]
-    > Observe que o `signIn` método primeiro verifica se há uma conta de usuário já no cache do MSAL. Se houver, ele tentará atualizar seus tokens de forma silenciosa, evitando ter que avisar o usuário toda vez que iniciar o aplicativo.
+    > Observe que o `signIn` método faz uma entrada silenciosa (via `doSilentSignIn`). O retorno de chamada para esse método fará uma entrada interativa se o um falhar. Isso evita que o usuário seja avisado toda vez que iniciar o aplicativo.
 
 1. Salve suas alterações e execute o aplicativo.
 
@@ -396,7 +396,7 @@ Nesta seção, você criará uma classe auxiliar para manter todas as chamadas p
 
     ```java
     @Override
-    public void onSuccess(AuthenticationResult authenticationResult) {
+    public void onSuccess(IAuthenticationResult authenticationResult) {
         // Log the token for debug purposes
         String accessToken = authenticationResult.getAccessToken();
         Log.d("AUTH", String.format("Access token: %s", accessToken));
