@@ -1,12 +1,12 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="ef601-101">Neste exercício, você incorporará o Microsoft Graph no aplicativo.</span><span class="sxs-lookup"><span data-stu-id="ef601-101">In this exercise you will incorporate the Microsoft Graph into the application.</span></span> <span data-ttu-id="ef601-102">Para este aplicativo, você usará o [SDK do Microsoft Graph para Java](https://github.com/microsoftgraph/msgraph-sdk-java) para fazer chamadas para o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="ef601-102">For this application, you will use the [Microsoft Graph SDK for Java](https://github.com/microsoftgraph/msgraph-sdk-java) to make calls to Microsoft Graph.</span></span>
+<span data-ttu-id="a711c-101">Neste exercício, você incorporará o Microsoft Graph no aplicativo.</span><span class="sxs-lookup"><span data-stu-id="a711c-101">In this exercise you will incorporate the Microsoft Graph into the application.</span></span> <span data-ttu-id="a711c-102">Para este aplicativo, você usará o [SDK do Microsoft Graph para Java](https://github.com/microsoftgraph/msgraph-sdk-java) para fazer chamadas para o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="a711c-102">For this application, you will use the [Microsoft Graph SDK for Java](https://github.com/microsoftgraph/msgraph-sdk-java) to make calls to Microsoft Graph.</span></span>
 
-## <a name="get-calendar-events-from-outlook"></a><span data-ttu-id="ef601-103">Obter eventos de calendário do Outlook</span><span class="sxs-lookup"><span data-stu-id="ef601-103">Get calendar events from Outlook</span></span>
+## <a name="get-calendar-events-from-outlook"></a><span data-ttu-id="a711c-103">Obter eventos de calendário do Outlook</span><span class="sxs-lookup"><span data-stu-id="a711c-103">Get calendar events from Outlook</span></span>
 
-<span data-ttu-id="ef601-104">Nesta seção, você estenderá a `GraphHelper` classe para adicionar uma função para obter os eventos e a atualização `CalendarFragment` do usuário para usar essas novas funções.</span><span class="sxs-lookup"><span data-stu-id="ef601-104">In this section you will extend the `GraphHelper` class to add a function to get the user's events and update `CalendarFragment` to use these new functions.</span></span>
+<span data-ttu-id="a711c-104">Nesta seção, você estenderá a `GraphHelper` classe para adicionar uma função para obter os eventos e a atualização `CalendarFragment` do usuário para usar essas novas funções.</span><span class="sxs-lookup"><span data-stu-id="a711c-104">In this section you will extend the `GraphHelper` class to add a function to get the user's events and update `CalendarFragment` to use these new functions.</span></span>
 
-1. <span data-ttu-id="ef601-105">Abra o arquivo **GraphHelper** e adicione as seguintes `import` instruções à parte superior do arquivo.</span><span class="sxs-lookup"><span data-stu-id="ef601-105">Open the **GraphHelper** file and add the following `import` statements to the top of the file.</span></span>
+1. <span data-ttu-id="a711c-105">Abra o arquivo **GraphHelper** e adicione as seguintes `import` instruções à parte superior do arquivo.</span><span class="sxs-lookup"><span data-stu-id="a711c-105">Open the **GraphHelper** file and add the following `import` statements to the top of the file.</span></span>
 
     ```java
     import com.microsoft.graph.options.Option;
@@ -16,7 +16,7 @@
     import java.util.List;
     ```
 
-1. <span data-ttu-id="ef601-106">Adicione as seguintes funções à `GraphHelper` classe.</span><span class="sxs-lookup"><span data-stu-id="ef601-106">Add the following functions to the `GraphHelper` class.</span></span>
+1. <span data-ttu-id="a711c-106">Adicione as seguintes funções à `GraphHelper` classe.</span><span class="sxs-lookup"><span data-stu-id="a711c-106">Add the following functions to the `GraphHelper` class.</span></span>
 
     ```java
     public void getEvents(String accessToken, ICallback<IEventCollectionPage> callback) {
@@ -42,13 +42,13 @@
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="ef601-107">Considere o que o código `getEvents` está fazendo.</span><span class="sxs-lookup"><span data-stu-id="ef601-107">Consider what the code in `getEvents` is doing.</span></span>
+    > <span data-ttu-id="a711c-107">Considere o que o código `getEvents` está fazendo.</span><span class="sxs-lookup"><span data-stu-id="a711c-107">Consider what the code in `getEvents` is doing.</span></span>
     >
-    > - <span data-ttu-id="ef601-108">A URL que será chamada é `/v1.0/me/events`.</span><span class="sxs-lookup"><span data-stu-id="ef601-108">The URL that will be called is `/v1.0/me/events`.</span></span>
-    > - <span data-ttu-id="ef601-109">A `select` função limita os campos retornados para cada evento para apenas > aqueles que o modo de exibição realmente usará.</span><span class="sxs-lookup"><span data-stu-id="ef601-109">The `select` function limits the fields returned for each events to just > those the view will actually use.</span></span>
-    > - <span data-ttu-id="ef601-110">O `QueryOption` nome `orderby` é usado para classificar os resultados pela data e hora em que foram criados, com o item mais recente em primeiro lugar.</span><span class="sxs-lookup"><span data-stu-id="ef601-110">The `QueryOption` named `orderby` is used to sort the results by the date and time they were created, with the most recent item being first.</span></span>
+    > - <span data-ttu-id="a711c-108">A URL que será chamada é `/v1.0/me/events`.</span><span class="sxs-lookup"><span data-stu-id="a711c-108">The URL that will be called is `/v1.0/me/events`.</span></span>
+    > - <span data-ttu-id="a711c-109">A `select` função limita os campos retornados para cada evento para apenas aqueles que o modo de exibição realmente usará.</span><span class="sxs-lookup"><span data-stu-id="a711c-109">The `select` function limits the fields returned for each events to just those the view will actually use.</span></span>
+    > - <span data-ttu-id="a711c-110">O `QueryOption` nome `orderby` é usado para classificar os resultados pela data e hora em que foram criados, com o item mais recente em primeiro lugar.</span><span class="sxs-lookup"><span data-stu-id="a711c-110">The `QueryOption` named `orderby` is used to sort the results by the date and time they were created, with the most recent item being first.</span></span>
 
-1. <span data-ttu-id="ef601-111">Adicione as seguintes `import` instruções à parte superior do arquivo **CalendarFragment** .</span><span class="sxs-lookup"><span data-stu-id="ef601-111">Add the following `import` statements to the top of the **CalendarFragment** file.</span></span>
+1. <span data-ttu-id="a711c-111">Adicione as seguintes `import` instruções à parte superior do arquivo **CalendarFragment** .</span><span class="sxs-lookup"><span data-stu-id="a711c-111">Add the following `import` statements to the top of the **CalendarFragment** file.</span></span>
 
     ```java
     import android.util.Log;
@@ -64,14 +64,14 @@
     import java.util.List;
     ```
 
-1. <span data-ttu-id="ef601-112">Adicione os membros a seguir à `CalendarFragment` classe.</span><span class="sxs-lookup"><span data-stu-id="ef601-112">Add the following members to the `CalendarFragment` class.</span></span>
+1. <span data-ttu-id="a711c-112">Adicione os membros a seguir à `CalendarFragment` classe.</span><span class="sxs-lookup"><span data-stu-id="a711c-112">Add the following members to the `CalendarFragment` class.</span></span>
 
     ```java
     private List<Event> mEventList = null;
     private ProgressBar mProgress = null;
     ```
 
-1. <span data-ttu-id="ef601-113">Adicione as seguintes funções à `CalendarFragment` classe para ocultar e mostrar a barra de progresso e fornecer um retorno de chamada para a `getEvents` função no `GraphHelper`.</span><span class="sxs-lookup"><span data-stu-id="ef601-113">Add the following functions to the `CalendarFragment` class to hide and show the progress bar, and to provide a callback for the `getEvents` function in `GraphHelper`.</span></span>
+1. <span data-ttu-id="a711c-113">Adicione as seguintes funções à `CalendarFragment` classe para ocultar e mostrar a barra de progresso e fornecer um retorno de chamada para a `getEvents` função no `GraphHelper`.</span><span class="sxs-lookup"><span data-stu-id="a711c-113">Add the following functions to the `CalendarFragment` class to hide and show the progress bar, and to provide a callback for the `getEvents` function in `GraphHelper`.</span></span>
 
     ```java
     private void showProgressBar() {
@@ -114,7 +114,7 @@
     }
     ```
 
-1. <span data-ttu-id="ef601-114">Substitua a `onCreate` função na `CalendarFragment` classe para obter os eventos do usuário do Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="ef601-114">Override the `onCreate` function in the `CalendarFragment` class to get the user's events from Microsoft Graph.</span></span>
+1. <span data-ttu-id="a711c-114">Substitua a `onCreate` função na `CalendarFragment` classe para obter os eventos do usuário do Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="a711c-114">Override the `onCreate` function in the `CalendarFragment` class to get the user's events from Microsoft Graph.</span></span>
 
     ```java
     @Override
@@ -150,17 +150,17 @@
     }
     ```
 
-<span data-ttu-id="ef601-115">Observe o que esse código faz.</span><span class="sxs-lookup"><span data-stu-id="ef601-115">Notice what this code does.</span></span> <span data-ttu-id="ef601-116">Primeiro, ele chama `acquireTokenSilently` para obter o token de acesso.</span><span class="sxs-lookup"><span data-stu-id="ef601-116">First, it calls `acquireTokenSilently` to get the access token.</span></span> <span data-ttu-id="ef601-117">Chamar esse método sempre que um token de acesso é necessário é uma prática recomendada, pois aproveita as capacidades de cache e atualização de token do MSAL.</span><span class="sxs-lookup"><span data-stu-id="ef601-117">Calling this method every time an access token is needed is a best practice because it takes advantage of MSAL's caching and token refresh abilities.</span></span> <span data-ttu-id="ef601-118">Internamente, o MSAL verifica se há um token armazenado em cache e, em seguida, verifica se ele expirou.</span><span class="sxs-lookup"><span data-stu-id="ef601-118">Internally, MSAL checks for a cached token, then checks if it is expired.</span></span> <span data-ttu-id="ef601-119">Se o token estiver presente e não tiver expirado, ele apenas retornará o token armazenado em cache.</span><span class="sxs-lookup"><span data-stu-id="ef601-119">If the token is present and not expired, it just returns the cached token.</span></span> <span data-ttu-id="ef601-120">Se ele tiver expirado, ele tentará atualizar o token antes de devolvê-lo.</span><span class="sxs-lookup"><span data-stu-id="ef601-120">If it is expired, it attempts to refresh the token before returning it.</span></span>
+<span data-ttu-id="a711c-115">Observe o que esse código faz.</span><span class="sxs-lookup"><span data-stu-id="a711c-115">Notice what this code does.</span></span> <span data-ttu-id="a711c-116">Primeiro, ele chama `acquireTokenSilently` para obter o token de acesso.</span><span class="sxs-lookup"><span data-stu-id="a711c-116">First, it calls `acquireTokenSilently` to get the access token.</span></span> <span data-ttu-id="a711c-117">Chamar esse método sempre que um token de acesso é necessário é uma prática recomendada, pois aproveita as capacidades de cache e atualização de token do MSAL.</span><span class="sxs-lookup"><span data-stu-id="a711c-117">Calling this method every time an access token is needed is a best practice because it takes advantage of MSAL's caching and token refresh abilities.</span></span> <span data-ttu-id="a711c-118">Internamente, o MSAL verifica se há um token armazenado em cache e, em seguida, verifica se ele expirou.</span><span class="sxs-lookup"><span data-stu-id="a711c-118">Internally, MSAL checks for a cached token, then checks if it is expired.</span></span> <span data-ttu-id="a711c-119">Se o token estiver presente e não tiver expirado, ele apenas retornará o token armazenado em cache.</span><span class="sxs-lookup"><span data-stu-id="a711c-119">If the token is present and not expired, it just returns the cached token.</span></span> <span data-ttu-id="a711c-120">Se ele tiver expirado, ele tentará atualizar o token antes de devolvê-lo.</span><span class="sxs-lookup"><span data-stu-id="a711c-120">If it is expired, it attempts to refresh the token before returning it.</span></span>
 
-<span data-ttu-id="ef601-121">Depois que o token for recuperado, o código chamará `getEvents` o método para obter os eventos do usuário.</span><span class="sxs-lookup"><span data-stu-id="ef601-121">Once the token is retrieved, the code then calls the `getEvents` method to get the user's events.</span></span>
+<span data-ttu-id="a711c-121">Depois que o token for recuperado, o código chamará `getEvents` o método para obter os eventos do usuário.</span><span class="sxs-lookup"><span data-stu-id="a711c-121">Once the token is retrieved, the code then calls the `getEvents` method to get the user's events.</span></span>
 
-<span data-ttu-id="ef601-122">Agora você pode executar o aplicativo, entrar e tocar no item de navegação de **calendário** no menu.</span><span class="sxs-lookup"><span data-stu-id="ef601-122">You can now run the app, sign in, and tap the **Calendar** navigation item in the menu.</span></span> <span data-ttu-id="ef601-123">Você verá um despejo JSON dos eventos no log de depuração no Android Studio.</span><span class="sxs-lookup"><span data-stu-id="ef601-123">You should see a JSON dump of the events in the debug log in Android Studio.</span></span>
+<span data-ttu-id="a711c-122">Agora você pode executar o aplicativo, entrar e tocar no item de navegação de **calendário** no menu.</span><span class="sxs-lookup"><span data-stu-id="a711c-122">You can now run the app, sign in, and tap the **Calendar** navigation item in the menu.</span></span> <span data-ttu-id="a711c-123">Você verá um despejo JSON dos eventos no log de depuração no Android Studio.</span><span class="sxs-lookup"><span data-stu-id="a711c-123">You should see a JSON dump of the events in the debug log in Android Studio.</span></span>
 
-## <a name="display-the-results"></a><span data-ttu-id="ef601-124">Exibir os resultados</span><span class="sxs-lookup"><span data-stu-id="ef601-124">Display the results</span></span>
+## <a name="display-the-results"></a><span data-ttu-id="a711c-124">Exibir os resultados</span><span class="sxs-lookup"><span data-stu-id="a711c-124">Display the results</span></span>
 
-<span data-ttu-id="ef601-125">Agora você pode substituir o despejo JSON por algo para exibir os resultados de forma amigável.</span><span class="sxs-lookup"><span data-stu-id="ef601-125">Now you can replace the JSON dump with something to display the results in a user-friendly manner.</span></span> <span data-ttu-id="ef601-126">Nesta seção, você adicionará `ListView` um ao fragmento do calendário, criará um layout para cada item no `ListView`e criará um adaptador de lista personalizado para o `ListView` que mapeia os campos de cada `Event` um para o `TextView` apropriado no modo de exibição.</span><span class="sxs-lookup"><span data-stu-id="ef601-126">In this section, you will add a `ListView` to the calendar fragment, create a layout for each item in the `ListView`, and create a custom list adapter for the `ListView` that maps the fields of each `Event` to the appropriate `TextView` in the view.</span></span>
+<span data-ttu-id="a711c-125">Agora você pode substituir o despejo JSON por algo para exibir os resultados de forma amigável.</span><span class="sxs-lookup"><span data-stu-id="a711c-125">Now you can replace the JSON dump with something to display the results in a user-friendly manner.</span></span> <span data-ttu-id="a711c-126">Nesta seção, você adicionará `ListView` um ao fragmento do calendário, criará um layout para cada item no `ListView`e criará um adaptador de lista personalizado para o `ListView` que mapeia os campos de cada `Event` um para o `TextView` apropriado no modo de exibição.</span><span class="sxs-lookup"><span data-stu-id="a711c-126">In this section, you will add a `ListView` to the calendar fragment, create a layout for each item in the `ListView`, and create a custom list adapter for the `ListView` that maps the fields of each `Event` to the appropriate `TextView` in the view.</span></span>
 
-1. <span data-ttu-id="ef601-127">Substitua o `TextView` em **app/res/layout/fragment_calendar. xml** por um `ListView`.</span><span class="sxs-lookup"><span data-stu-id="ef601-127">Replace the `TextView` in **app/res/layout/fragment_calendar.xml** with a `ListView`.</span></span>
+1. <span data-ttu-id="a711c-127">Substitua o `TextView` em **app/res/layout/fragment_calendar. xml** por um `ListView`.</span><span class="sxs-lookup"><span data-stu-id="a711c-127">Replace the `TextView` in **app/res/layout/fragment_calendar.xml** with a `ListView`.</span></span>
 
     ```xml
     <ListView
@@ -171,11 +171,11 @@
         android:dividerHeight="1dp" />
     ```
 
-1. <span data-ttu-id="ef601-128">Clique com o botão direito do mouse na pasta **app/res/layout** e selecione **novo**e, em seguida, **arquivo de recurso de layout**.</span><span class="sxs-lookup"><span data-stu-id="ef601-128">Right-click the **app/res/layout** folder and select **New**, then **Layout resource file**.</span></span>
+1. <span data-ttu-id="a711c-128">Clique com o botão direito do mouse na pasta **app/res/layout** e selecione **novo**e, em seguida, **arquivo de recurso de layout**.</span><span class="sxs-lookup"><span data-stu-id="a711c-128">Right-click the **app/res/layout** folder and select **New**, then **Layout resource file**.</span></span>
 
-1. <span data-ttu-id="ef601-129">Nomeie o arquivo `event_list_item`, altere o **elemento raiz** para `RelativeLayout`e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="ef601-129">Name the file `event_list_item`, change the **Root element** to `RelativeLayout`, and select **OK**.</span></span>
+1. <span data-ttu-id="a711c-129">Nomeie o arquivo `event_list_item`, altere o **elemento raiz** para `RelativeLayout`e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="a711c-129">Name the file `event_list_item`, change the **Root element** to `RelativeLayout`, and select **OK**.</span></span>
 
-1. <span data-ttu-id="ef601-130">Abra o arquivo **event_list_item. xml** e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="ef601-130">Open the **event_list_item.xml** file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="a711c-130">Abra o arquivo **event_list_item. xml** e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="a711c-130">Open the **event_list_item.xml** file and replace its contents with the following.</span></span>
 
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -239,11 +239,11 @@
     </RelativeLayout>
     ```
 
-1. <span data-ttu-id="ef601-131">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="ef601-131">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span>
+1. <span data-ttu-id="a711c-131">Clique com o botão direito do mouse na pasta **app/Java/com. example. graphtutorial** e selecione **nova**e, em seguida, **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="a711c-131">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span>
 
-1. <span data-ttu-id="ef601-132">Nomeie a classe `EventListAdapter` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="ef601-132">Name the class `EventListAdapter` and select **OK**.</span></span>
+1. <span data-ttu-id="a711c-132">Nomeie a classe `EventListAdapter` e selecione **OK**.</span><span class="sxs-lookup"><span data-stu-id="a711c-132">Name the class `EventListAdapter` and select **OK**.</span></span>
 
-1. <span data-ttu-id="ef601-133">Abra o arquivo **EventListAdapter** e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="ef601-133">Open the **EventListAdapter** file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="a711c-133">Abra o arquivo **EventListAdapter** e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="a711c-133">Open the **EventListAdapter** file and replace its contents with the following.</span></span>
 
     ```java
     package com.example.graphtutorial;
@@ -330,7 +330,7 @@
     }
     ```
 
-1. <span data-ttu-id="ef601-134">Abra a classe **CalendarFragment** e adicione a função a seguir à classe.</span><span class="sxs-lookup"><span data-stu-id="ef601-134">Open the **CalendarFragment** class and add the following function to the class.</span></span>
+1. <span data-ttu-id="a711c-134">Abra a classe **CalendarFragment** e adicione a função a seguir à classe.</span><span class="sxs-lookup"><span data-stu-id="a711c-134">Open the **CalendarFragment** class and add the following function to the class.</span></span>
 
     ```java
     private void addEventsToList() {
@@ -348,12 +348,12 @@
     }
     ```
 
-1. <span data-ttu-id="ef601-135">Adicione a seguinte linha de código na `success` substituição após a `mEventList = iEventCollectionPage.getCurrentPage();` linha.</span><span class="sxs-lookup"><span data-stu-id="ef601-135">Add the following line of code in the `success` override after the `mEventList = iEventCollectionPage.getCurrentPage();` line.</span></span>
+1. <span data-ttu-id="a711c-135">Adicione a seguinte linha de código na `success` substituição após a `mEventList = iEventCollectionPage.getCurrentPage();` linha.</span><span class="sxs-lookup"><span data-stu-id="a711c-135">Add the following line of code in the `success` override after the `mEventList = iEventCollectionPage.getCurrentPage();` line.</span></span>
 
     ```java
     addEventsToList();
     ```
 
-1. <span data-ttu-id="ef601-136">Execute o aplicativo, entre e toque no item de navegação **calendário** .</span><span class="sxs-lookup"><span data-stu-id="ef601-136">Run the app, sign in, and tap the **Calendar** navigation item.</span></span> <span data-ttu-id="ef601-137">Você deve ver a lista de eventos.</span><span class="sxs-lookup"><span data-stu-id="ef601-137">You should see the list of events.</span></span>
+1. <span data-ttu-id="a711c-136">Execute o aplicativo, entre e toque no item de navegação **calendário** .</span><span class="sxs-lookup"><span data-stu-id="a711c-136">Run the app, sign in, and tap the **Calendar** navigation item.</span></span> <span data-ttu-id="a711c-137">Você deve ver a lista de eventos.</span><span class="sxs-lookup"><span data-stu-id="a711c-137">You should see the list of events.</span></span>
 
     ![Uma captura de tela da tabela de eventos](./images/calendar-list.png)
