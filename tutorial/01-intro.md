@@ -1,27 +1,22 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-Este tutorial ensina como criar um aplicativo Android que usa a API do Microsoft Graph para recuperar informações de calendário de um usuário.
+Este tutorial ensina a criar um aplicativo Android que usa a API do Microsoft Graph para recuperar informações de calendário para um usuário.
 
 > [!TIP]
-> Se preferir baixar o tutorial concluído, você poderá baixar ou clonar o repositório do [GitHub](https://github.com/microsoftgraph/msgraph-training-android).
+> Se preferir apenas baixar o tutorial concluído, você pode baixar ou clonar o [repositório do GitHub.](https://github.com/microsoftgraph/msgraph-training-android)
 
 ## <a name="prerequisites"></a>Pré-requisitos
 
-Antes de iniciar este tutorial, você deve ter o [Android Studio](https://developer.android.com/studio/) instalado em sua máquina de desenvolvimento.
+Antes de começar este tutorial, você deve ter [o Android Studio](https://developer.android.com/studio/) instalado em sua máquina de desenvolvimento.
+
+Você também deve ter uma conta pessoal da Microsoft com uma caixa de correio no Outlook.com ou uma conta de trabalho ou de estudante da Microsoft. Se você não tiver uma conta da Microsoft, há algumas opções para obter uma conta gratuita:
+
+- Você pode [se inscrever para uma nova conta pessoal da Microsoft.](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1)
+- Você pode se inscrever no Programa para Desenvolvedores do [Office 365](https://developer.microsoft.com/office/dev-program) para obter uma assinatura gratuita do Office 365.
 
 > [!NOTE]
-> Este tutorial foi escrito com o Android Studio versão 3.5.1 e o SDK 10,0 do Android. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
-
-## <a name="watch-the-tutorial"></a>Assista ao tutorial
-
-Este módulo foi gravado e está disponível no canal do Office Development YouTube.
-
-<!-- markdownlint-disable MD033 MD034 -->
-<br/>
-
-> [!VIDEO https://www.youtube-nocookie.com/embed/BLmOmv4FSsQ]
-<!-- markdownlint-enable MD033 MD034 -->
+> Este tutorial foi escrito com o Android Studio versão 4.1.1 e o SDK do Android 10.0. As etapas neste guia podem funcionar com outras versões, mas que não foram testadas.
 
 ## <a name="feedback"></a>Comentários
 
-Forneça comentários sobre este tutorial no [repositório do GitHub](https://github.com/microsoftgraph/msgraph-training-android).
+Faça comentários sobre este tutorial no repositório [do GitHub.](https://github.com/microsoftgraph/msgraph-training-android)
