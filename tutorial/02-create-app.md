@@ -4,11 +4,11 @@ Comece criando um novo projeto do Android Studio.
 
 1. Abra o Android Studio e selecione **Iniciar um novo projeto do Android Studio** na tela de boas-vindas.
 
-1. In the **Create New Project** dialog, select Empty **Activity**, then select **Next**.
+1. Na caixa de diálogo Criar **Novo Projeto,** selecione **Atividade Vazia** e, em seguida, selecione **Próximo**.
 
-    ![Captura de tela da caixa de diálogo Criar Novo Projeto no Android Studio](./images/choose-project.png)
+    ![Uma captura de tela da caixa de diálogo Criar Novo Projeto no Android Studio](./images/choose-project.png)
 
-1. Na caixa **de diálogo** Configurar  seu projeto, de definir o nome como , certifique-se de que o campo idioma está definido como e certifique-se de que o nível mínimo `Graph Tutorial` de API está definido como  `Java`  `API 29: Android 10.0 (Q)` . Modifique **o nome do pacote** e salve o **local** conforme necessário. Selecione **Concluir**.
+1. Na caixa **de diálogo Configurar seu** projeto, de configure o **nome** como , verifique se o campo Idioma está definido como , e verifique se o nível `Graph Tutorial` mínimo da API está definido como  `Java`  `API 29: Android 10.0 (Q)` . Modifique **o nome do pacote e** salve o local **conforme** necessário. Selecione **Concluir**.
 
     ![Uma captura de tela da caixa de diálogo Configurar seu projeto](./images/configure-project.png)
 
@@ -19,13 +19,13 @@ Comece criando um novo projeto do Android Studio.
 
 Antes de continuar, instale algumas dependências adicionais que você usará mais tarde.
 
-- `com.google.android.material:material` para [disponibilizar o modo de exibição](https://material.io/develop/android/components/navigation-view/) de navegação para o aplicativo.
-- [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) to handle Azure AD authentication and token management.
-- [SDK do Microsoft Graph para Java](https://github.com/microsoftgraph/msgraph-sdk-java) para fazer chamadas ao Microsoft Graph.
+- `com.google.android.material:material` para disponibilizar o [modo de](https://material.io/develop/android/components/navigation-view/) exibição de navegação para o aplicativo.
+- [Biblioteca de Autenticação da Microsoft (MSAL) para Android para](https://github.com/AzureAD/microsoft-authentication-library-for-android) lidar com a autenticação do Azure AD e o gerenciamento de tokens.
+- [SDK do Microsoft Graph para Java](https://github.com/microsoftgraph/msgraph-sdk-java) para fazer chamadas para o Microsoft Graph.
 
-1. Expanda **scripts gradle** e abra **build.gradle (módulo: Graph_Tutorial.app)**.
+1. Expanda **Scripts de Gradle** e abra **build.gradle (Módulo: Graph_Tutorial.app)**.
 
-1. Adicione as linhas a seguir dentro do `dependencies` valor.
+1. Adicione as seguintes linhas dentro do `dependencies` valor.
 
     :::code language="gradle" source="../demo/GraphTutorial/app/build.gradle" id="DependenciesSnippet":::
 
@@ -33,11 +33,11 @@ Antes de continuar, instale algumas dependências adicionais que você usará ma
 
     ```Gradle
     packagingOptions {
-        pickFirst 'META-INF/jersey-module-version'
+        pickFirst 'META-INF/*'
     }
     ```
 
-1. Adicione o repositório do Azure Maven à biblioteca MicrosoftDeviceSDK, uma dependência da MSAL. Abra **build.gradle (Project: Graph_Tutorial)**. Adicione o seguinte ao `repositories` valor dentro do `allprojects` valor.
+1. Adicione o repositório do Azure Maven para a biblioteca MicrosoftDeviceSDK, uma dependência do MSAL. Abra **build.gradle (Project: Graph_Tutorial)**. Adicione o seguinte ao `repositories` valor dentro do `allprojects` valor.
 
     ```Gradle
     maven {
@@ -45,11 +45,11 @@ Antes de continuar, instale algumas dependências adicionais que você usará ma
     }
     ```
 
-1. Salve suas alterações. No menu **Arquivo,** selecione **Sincronizar Projeto com Arquivos do Gradle.**
+1. Salve suas alterações. No menu **Arquivo,** selecione **Sincronizar Projeto com Arquivos gradle**.
 
-## <a name="design-the-app"></a>Projetar o aplicativo
+## <a name="design-the-app"></a>Design do aplicativo
 
-O aplicativo usará uma gaveta de navegação para navegar entre diferentes exibições. Nesta etapa, você atualizará a atividade para usar um layout de gaveta de navegação e adicionará fragmentos para as exibições.
+O aplicativo usará uma gaveta de navegação para navegar entre diferentes exibições. Nesta etapa, você atualizará a atividade para usar um layout da gaveta de navegação e adicionará fragmentos para os exibições.
 
 ### <a name="create-a-navigation-drawer"></a>Criar uma gaveta de navegação
 
@@ -57,17 +57,17 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
 
 #### <a name="create-icons"></a>Criar ícones
 
-1. Clique com o botão direito do mouse na **pasta app/res/drawable** e selecione **Novo** e, em seguida, **Ativo Vetor.**
+1. Clique com o botão direito do **mouse na pasta app/res/drawable** e selecione **Novo**, em seguida, **Vector Asset**.
 
-1. Clique no botão de ícone ao lado **de Clip-art.**
+1. Clique no botão ícone ao lado de **Clip Art**.
 
-1. Na janela **Selecionar Ícone,** digite na barra de pesquisa, selecione o ícone `home` **Página** Home e selecione **OK**.
+1. Na janela **Selecionar Ícone,** digite na barra de pesquisa e selecione o `home` **ícone** Home e selecione **OK**.
 
 1. Altere **o nome** para `ic_menu_home` .
 
     ![Uma captura de tela da janela Configurar Ativo Vetor](./images/create-icon.png)
 
-1. Select **Next**, then **Finish**.
+1. Selecione **Próximo** **e,** em seguida, Concluir .
 
 1. Repita a etapa anterior para criar mais quatro ícones.
 
@@ -78,37 +78,41 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
 
 #### <a name="create-the-menu"></a>Criar o menu
 
-1. Clique com o botão direito do mouse na **pasta res** e selecione **Novo,** em seguida, **Diretório de Recursos do Android.**
+1. Clique com o botão direito do mouse **na pasta res** e selecione **Novo**, em seguida, Diretório de Recursos **do Android**.
 
 1. Altere **o tipo de recurso** para e selecione `menu` **OK**.
 
-1. Clique com o botão direito do mouse na nova **pasta de menus** e selecione **Novo,** em seguida, **arquivo de recurso de menu.**
+1. Clique com o botão direito do mouse na nova **pasta de menu** e selecione **Novo**, em **seguida, menu arquivo de recurso**.
 
-1. Nome do arquivo `drawer_menu` e selecione **OK**.
+1. Nomeia o `drawer_menu` arquivo e selecione **OK**.
 
-1. Quando o arquivo for aberto, selecione **a** guia Código para exibir o XML e substitua todo o conteúdo pelo seguinte.
+1. Quando o arquivo for aberto, selecione a guia **Código** para exibir o XML e substitua todo o conteúdo pelo seguinte.
 
     :::code language="xml" source="../demo/GraphTutorial/app/src/main/res/menu/drawer_menu.xml":::
 
 #### <a name="update-application-theme-and-layout"></a>Atualizar o tema e o layout do aplicativo
 
-1. Abra o **arquivo app/res/values/styles.xml** e substitua `Theme.AppCompat.Light.DarkActionBar` por `Theme.AppCompat.Light.NoActionBar` .
-
-1. Adicione as linhas a seguir ao `style` elemento.
+1. Abra o **arquivo app/res/values/themes.xml** e adicione as seguintes linhas dentro do `style` elemento.
 
     ```xml
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
     ```
 
-1. Clique com o botão direito **do mouse na pasta app/res/layout.**
+1. Abra o **arquivo app/res/values-night/themes.xml** e adicione as seguintes linhas dentro do `style` elemento.
 
-1. Select **New**, then **Layout resource file**.
+    ```xml
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    ```
 
-1. Nome do arquivo `nav_header` e altere o **elemento Root** `LinearLayout` para, em seguida, selecione **OK**.
+1. Clique com o botão direito **do mouse na pasta aplicativo/res/layout.**
 
-1. Abra o **nav_header.xml** e selecione a **guia** Texto. Substitua todo o conteúdo pelo seguinte.
+1. Selecione **Novo** e, em seguida, **arquivo de recurso layout.**
+
+1. Nomee o `nav_header` arquivo e altere **o elemento Root** para , `LinearLayout` em seguida, selecione **OK**.
+
+1. Abra o **nav_header.xml** e selecione a **guia** Código. Substitua todo o conteúdo pelo seguinte.
 
     :::code language="xml" source="../demo/GraphTutorial/app/src/main/res/layout/nav_header.xml":::
 
@@ -281,21 +285,21 @@ Nesta seção, você criará ícones para o menu de navegação do aplicativo, c
 
 ### <a name="add-fragments"></a>Adicionar fragmentos
 
-Nesta seção, você criará fragmentos para as exibições de página e calendário.
+Nesta seção, você criará fragmentos para as exibições de início e calendário.
 
-1. Clique com o botão direito do **mouse na pasta app/res/layout** e selecione **Novo** e, em seguida, arquivo de **recurso layout.**
+1. Clique com o botão direito do **mouse na pasta aplicativo/res/layout** e selecione **Novo**, em **seguida, Arquivo de recurso layout.**
 
-1. Nome do arquivo `fragment_home` e altere o **elemento Root** `RelativeLayout` para, em seguida, selecione **OK**.
+1. Nomee o `fragment_home` arquivo e altere **o elemento Root** para , `RelativeLayout` em seguida, selecione **OK**.
 
-1. Abra o **fragment_home.xml** arquivo e substitua seu conteúdo pelo seguinte.
+1. Abra o **arquivofragment_home.xml** e substitua seu conteúdo pelo seguinte.
 
     :::code language="xml" source="../demo/GraphTutorial/app/src/main/res/layout/fragment_home.xml":::
 
-1. Clique com o botão direito do **mouse na pasta app/res/layout** e selecione **Novo** e, em seguida, arquivo de **recurso layout.**
+1. Clique com o botão direito do **mouse na pasta aplicativo/res/layout** e selecione **Novo**, em **seguida, Arquivo de recurso layout.**
 
-1. Nome do arquivo `fragment_calendar` e altere o **elemento Root** `RelativeLayout` para, em seguida, selecione **OK**.
+1. Nomee o `fragment_calendar` arquivo e altere **o elemento Root** para , `RelativeLayout` em seguida, selecione **OK**.
 
-1. Abra o **fragment_calendar.xml** arquivo e substitua seu conteúdo pelo seguinte.
+1. Abra o **arquivofragment_calendar.xml** e substitua seu conteúdo pelo seguinte.
 
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -313,11 +317,11 @@ Nesta seção, você criará fragmentos para as exibições de página e calend�
     </RelativeLayout>
     ```
 
-1. Clique com o botão direito do **mouse na pasta app/res/layout** e selecione **Novo** e, em seguida, arquivo de **recurso layout.**
+1. Clique com o botão direito do **mouse na pasta aplicativo/res/layout** e selecione **Novo**, em **seguida, Arquivo de recurso layout.**
 
-1. Nome do arquivo `fragment_new_event` e altere o **elemento Root** `RelativeLayout` para, em seguida, selecione **OK**.
+1. Nomee o `fragment_new_event` arquivo e altere **o elemento Root** para , `RelativeLayout` em seguida, selecione **OK**.
 
-1. Abra o **fragment_new_event.xml** arquivo e substitua seu conteúdo pelo seguinte.
+1. Abra o **arquivofragment_new_event.xml** e substitua seu conteúdo pelo seguinte.
 
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -335,17 +339,17 @@ Nesta seção, você criará fragmentos para as exibições de página e calend�
     </RelativeLayout>
     ```
 
-1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **New**, em seguida, **Classe Java.**
+1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **Novo**, depois **Java Classe**.
 
-1. Nome da `HomeFragment` classe, em seguida, selecione **OK**.
+1. Nomeia a `HomeFragment` classe e selecione **OK**.
 
 1. Abra o **arquivo HomeFragment** e substitua seu conteúdo pelo seguinte.
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/HomeFragment.java" id="HomeSnippet":::
 
-1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **New**, em seguida, **Classe Java.**
+1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **Novo**, depois **Java Classe**.
 
-1. Nome da `CalendarFragment` classe, em seguida, selecione **OK**.
+1. Nomeia a `CalendarFragment` classe e selecione **OK**.
 
 1. Abra o **arquivo CalendarFragment** e substitua seu conteúdo pelo seguinte.
 
@@ -393,9 +397,9 @@ Nesta seção, você criará fragmentos para as exibições de página e calend�
     }
     ```
 
-1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **New**, em seguida, **Classe Java.**
+1. Clique com o botão direito do **mouse na pasta app/java/com.example.graphtutorial** e selecione **Novo**, depois **Java Classe**.
 
-1. Nome da `NewEventFragment` classe, em seguida, selecione **OK**.
+1. Nomeia a `NewEventFragment` classe e selecione **OK**.
 
 1. Abra o **arquivo NewEventFragment** e substitua seu conteúdo pelo seguinte.
 
@@ -443,7 +447,7 @@ Nesta seção, você criará fragmentos para as exibições de página e calend�
     }
     ```
 
-1. Abra o **arquivo MainActivity.java** e adicione as funções a seguir à classe.
+1. Abra o **arquivo MainActivity.java** e adicione as seguintes funções à classe.
 
     ```java
     // Load the "Home" fragment
@@ -484,14 +488,14 @@ Nesta seção, você criará fragmentos para as exibições de página e calend�
     }
     ```
 
-1. Substitua a função `onNavigationItemSelected` existente pelo seguinte.
+1. Substitua a função `onNavigationItemSelected` existente pela seguinte.
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/MainActivity.java" id="OnNavItemSelectedSnippet":::
 
-1. Salve todas as suas alterações.
+1. Salve todas as alterações.
 
-1. No menu **Executar,** selecione **Executar 'aplicativo'**.
+1. No menu **Executar,** selecione **Executar 'app'**.
 
-O menu do aplicativo deve funcionar para navegar entre os  dois fragmentos e mudar quando você toca nos botões Entrar ou **Sair.**
+O menu do aplicativo deve funcionar para navegar entre os  dois fragmentos e alterar quando você tocar nos botões Entrar ou **Sair.**
 
 ![Captura de tela do aplicativo](./images/app-screens.png)
